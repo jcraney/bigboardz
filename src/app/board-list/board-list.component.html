@@ -1,0 +1,15 @@
+<div class="board-list">
+  <h2>Available Boards</h2>
+  <ul *ngIf="boards && boards.length > 0; else noBoards">
+    <li *ngFor="let board of boards; let i = index" class="board-item">
+        <h3>Board #{{i + 1}}</h3>
+        <p>Game Details: {{ board.gameDetails }}</p>
+        <p>Entry Fee: {{ board.entryFee }} {{ board.acceptedToken }}</p>
+        <p>Payout Structure: {{ board.payoutStructure }}</p>
+        <button (click)="viewBoard(board.id)">View Details</button>
+    </li>
+  </ul>
+  <ng-template #noBoards>
+      <p>No boards available. Create one to get started!</p>
+    </ng-template>
+</div>

@@ -1,0 +1,31 @@
+
+
+    <div class="form-group">
+      <label for="entryFee">Entry Fee</label>
+      <input type="number" id="entryFee" class="form-control" required [(ngModel)]="newBoard.entryFee" name="entryFee" #entryFee="ngModel">
+      <div *ngIf="entryFee.invalid && (entryFee.dirty || entryFee.touched)" class="alert alert-danger">
+        <div *ngIf="entryFee.errors?.['required']">Entry fee is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="payoutStructure">Payout Structure (e.g., 8-5-2 for 1st, 2nd, 3rd)</label>
+      <input type="text" id="payoutStructure" class="form-control" required [(ngModel)]="newBoard.payoutStructure" name="payoutStructure" #payoutStructure="ngModel">
+      <div *ngIf="payoutStructure.invalid && (payoutStructure.dirty || payoutStructure.touched)" class="alert alert-danger">
+        <div *ngIf="payoutStructure.errors?.['required']">Payout structure is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="acceptedToken">Accepted Token</label>
+      <select id="acceptedToken" class="form-control" required [(ngModel)]="newBoard.acceptedToken" name="acceptedToken" #acceptedToken="ngModel">
+        <option *ngFor="let token of acceptedTokens" [value]="token">{{ token }}</option>
+      </select>
+      <div *ngIf="acceptedToken.invalid && (acceptedToken.dirty || acceptedToken.touched)" class="alert alert-danger">
+        <div *ngIf="acceptedToken.errors?.['required']">Accepted token is required.</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!boardForm.valid">Create Board</button>
+  </form>
+</div>
