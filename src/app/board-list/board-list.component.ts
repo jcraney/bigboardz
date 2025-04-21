@@ -7,7 +7,7 @@ import { Board } from '../board.model';
 @Component({
   selector: 'app-board-list',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule],
   templateUrl: './board-list.component.html',
   styleUrls: ['./board-list.component.css']
 })

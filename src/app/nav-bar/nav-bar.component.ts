@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { BoardListComponent } from '../board-list/board-list.component';
+
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, BoardListComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" routerLink="/">Football Squares</a>
