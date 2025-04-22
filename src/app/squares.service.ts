@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL, sendAndConfirmTransaction, TransactionInstruction, } from '@solana/web3.js';
+import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 import { BehaviorSubject, Observable, from, map } from 'rxjs';
-import { WalletAdapter } from '@solana/wallet-adapter-base';
-import { Program, Provider, web3 } from '@coral-xyz/anchor';
-import { IDL } from './squares'; // Assuming you have your generated IDL file
+import { Program, AnchorProvider, Wallet } from '@coral-xyz/anchor';
+import { FootballSquares } from './football_squares';
+import idl from './idl.json';
+ 
+
 
 // Replace with your actual program ID
-const PROGRAM_ID = new PublicKey('YOUR_PROGRAM_ID');
+const PROGRAM_ID = new PublicKey('GPTwcAkHNkPNYJA6enZxAuqZLbW9UZaakefwUpyfPyMZ');
 
 // Interface for Board Data (adjust as needed based on your contract)
 export interface Board {
@@ -23,10 +25,10 @@ export interface Board {
 })
 export class SquaresService {
   private connection: Connection;
-  private program: Program | undefined;
+  private program: Program<FootballSquares> | undefined;
   private _publicKey = new BehaviorSubject<PublicKey | null>(null);
   publicKey$ = this._publicKey.asObservable();
-  private wallet: WalletAdapter | undefined;
+  private wallet: Wallet | undefined;
 
   constructor() {
     // Initialize connection here (e.g., use mainnet-beta, devnet, testnet)
@@ -34,14 +36,19 @@ export class SquaresService {
   }
 
   // Method to connect the wallet
-  async connectWallet(wallet: WalletAdapter): Promise<void> {
+  async connectWallet(wallet: Wallet): Promise<void> {
     if (this.wallet) {
       return;
     }
 
     try {
       this.wallet = wallet;
-      await this.wallet.connect();
+    //  this was breaking the app.
+    //   await this.wallet.connect();
+      
+      if(!this.wallet.publicKey){
+        throw new Error('No wallet public key');
+      }
 
        // Initialize the program after the wallet is connected
       await this.initializeProgram();
@@ -55,7 +62,7 @@ export class SquaresService {
   async disconnectWallet() {
     try {
       // Assuming the wallet provider has a 'disconnect' method
-      await this.wallet?.disconnect();
+      // await this.wallet?.disconnect();
       this.wallet = undefined;
       
       this._publicKey.next(null); // Update the publicKey observable
@@ -70,20 +77,18 @@ export class SquaresService {
       throw new Error('Wallet not connected.');
     }
 
-    const provider = new Provider(
+    const provider = new AnchorProvider(
       this.connection,
-      this.wallet,
-      { commitment: 'confirmed' }
-    );
-    this.program = new Program(IDL as any, PROGRAM_ID, provider);
+      this.wallet, { commitment: 'confirmed' });
+    this.program = new Program(idl as unknown as FootballSquares, provider);
   }
 
   get isConnected(): boolean {
-    return !!this.wallet?.connected;
+    return !!this.wallet;
   }
 
   publicKey(): PublicKey | null {
-    if (this.wallet) {
+    if (this.wallet?.publicKey) {
       this._publicKey.next(this.wallet?.publicKey || null)
       return this.wallet?.publicKey;
     } else {
@@ -137,7 +142,7 @@ export class SquaresService {
         )
         .accounts({
           board: boardKeypair,
-          creator: this.wallet.publicKey,
+          user: this.wallet.publicKey,
           systemProgram: SystemProgram.programId,
         })
         .signers([]) // Add signers if needed
@@ -149,5 +154,4 @@ export class SquaresService {
       throw error;
     }
   }
-
-
+}
