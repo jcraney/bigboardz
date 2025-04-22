@@ -1,7 +1,12 @@
 <nav>
-  <ul>
-    <li><a routerLink="/boardz" routerLinkActive="active">Boards</a></li>
-    <li><a routerLink="/waiting-list" routerLinkActive="active">Waiting List</a></li>
-    <!-- Add other navigation links here -->
-  </ul>
+  <mat-toolbar color="primary">
+    <span>Big Boardz</span>
+    <span class="spacer"></span>
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:3986920372. -->
+    <button mat-icon-button aria-label="Home icon" routerLink="/">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-button routerLink="/boardz" routerLinkActive="active">Boards</button>
+    <button mat-button routerLink="/waiting-list" routerLinkActive="active">Waiting List</button>
+  </mat-toolbar>
 </nav>
