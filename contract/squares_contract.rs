@@ -1,5 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::system_program;
+use switchboard_v2::AggregatorAccountData;
+
 
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 
@@ -13,6 +15,8 @@ pub mod football_squares {
         payout_structure: Vec<u8>, // Example: [50, 25, 15, 10] for 4 quarters
         accepted_token: Pubkey,
         game_details: String,
+        switchboard_feed: Pubkey,
+        switchboard_queue: Pubkey,
     ) -> Result<()> {
         let board = &mut ctx.accounts.board;
         board.creator = *ctx.accounts.user.key;
@@ -21,6 +25,8 @@ pub mod football_squares {
         board.accepted_token = accepted_token;
         board.game_details = game_details;
         board.squares = vec![None; 100]; // 10x10 grid
+        board.switchboard_feed = switchboard_feed;
+        board.switchboard_queue = switchboard_queue;
         board.is_active = true;
         Ok(())
     }
@@ -40,11 +46,28 @@ pub mod football_squares {
         Ok(())
     }
 
-    // TODO: Implement update_results function that interacts with Chainlink oracle
-    //       and distributes payouts based on the oracle data and payout_structure.
-    //       This function will likely be called by the program authority after
-    //       the game concludes.
+    pub fn update_results(ctx: Context<UpdateResults>) -> Result<()> {
+        let board = &mut ctx.accounts.board;
+        // Load the aggregator account from the switchboard feed
+        let aggregator_account_info = ctx.accounts.switchboard_feed.clone();
+        let aggregator = AggregatorAccountData::new(&aggregator_account_info)?;
+
+        // TODO: Call switchboard to get the data from ESPN.com using the feed
+        //       We can call the latest_confirmed_round.result to get the result.
+        //       This will likely be a struct with the game score.
+        //       Example:
+        //       let result = aggregator.latest_confirmed_round.result;
+        //       let home_team_score = result.home_team_score;
+        //       let away_team_score = result.away_team_score;
+        
+        // TODO: Distribute payouts based on the payout_structure
+        //       This will involve checking which squares match the results.
+        //       Then transferring the accepted_token to the winners.
+
+        Ok(())
+    }
 }
+
 
 #[derive(Accounts)]
 pub struct CreateBoard<'info> {
@@ -64,6 +87,13 @@ pub struct BuySquare<'info> {
     // TODO: Add token program account if needed for token transfers
 }
 
+#[derive(Accounts)]
+pub struct UpdateResults<'info> {
+    #[account(mut)]
+    pub board: Account<'info, Board>,
+    pub switchboard_feed: AccountInfo<'info>
+}
+
 #[account]
 pub struct Board {
     pub creator: Pubkey,
@@ -73,6 +103,8 @@ pub struct Board {
     pub game_details: String,
     pub squares: Vec<Option<Pubkey>>,
     pub is_active: bool,
+    pub switchboard_feed: Pubkey,
+    pub switchboard_queue: Pubkey,
 }
 
 #[error_code]
@@ -83,5 +115,4 @@ pub enum ErrorCode {
     InvalidSquare,
     #[msg("Square already taken.")]
     SquareAlreadyTaken,
-    // TODO: Add more error codes as needed
 }

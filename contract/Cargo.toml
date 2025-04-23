@@ -1,0 +1,10 @@
+toml
+[package]
+name = "football-squares"
+version = "0.1.0"
+authors = ["your-name <your-email@example.com>"]
+edition = "2021"
+description = "Football Squares Game"
+
+[dependencies]
+switchboard-v2 = { git = "https://github.com/switchboard-xyz/switchboard-v2", features = ["no-entrypoint"] }
