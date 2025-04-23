@@ -1,97 +1,139 @@
-<form>
-  <h2>Join the Waiting List</h2>
+<mat-card>
+  <mat-card-title><h2>Join the Waiting List</h2></mat-card-title>
+  <mat-card-content>
+    <mat-stepper>
+      <mat-step>
+        <ng-template matStepLabel>Preferences</ng-template>
+        <p>How likely are you to buy a square at the following prices?</p>
 
-  <p>How likely are you to buy a square at the following prices?</p>
+        <div>
+          <mat-form-field>
+            <mat-label>$5 Square</mat-label>
+            <mat-select>
+              <mat-option value="1">Very Unlikely</mat-option>
+              <mat-option value="2">Unlikely</mat-option>
+              <mat-option value="3">Neutral</mat-option>
+              <mat-option value="4">Likely</mat-option>
+              <mat-option value="5">Very Likely</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div>
-    <label for="square5">$5 Square:</label>
-    <select id="square5">
-      <option value="1">Very Unlikely</option>
-      <option value="2">Unlikely</option>
-      <option value="3">Neutral</option>
-      <option value="4">Likely</option>
-      <option value="5">Very Likely</option>
-    </select>
-  </div>
+        <div>
+          <mat-form-field>
+            <mat-label>$10 Square</mat-label>
+            <mat-select>
+              <mat-option value="1">Very Unlikely</mat-option>
+              <mat-option value="2">Unlikely</mat-option>
+              <mat-option value="3">Neutral</mat-option>
+              <mat-option value="4">Likely</mat-option>
+              <mat-option value="5">Very Likely</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div>
-    <label for="square10">$10 Square:</label>
-    <select id="square10">
-      <option value="1">Very Unlikely</option>
-      <option value="2">Unlikely</option>
-      <option value="3">Neutral</option>
-      <option value="4">Likely</option>
-      <option value="5">Very Likely</option>
-    </select>
-  </div>
+        <div>
+          <mat-form-field>
+            <mat-label>$25 Square</mat-label>
+            <mat-select>
+              <mat-option value="1">Very Unlikely</mat-option>
+              <mat-option value="2">Unlikely</mat-option>
+              <mat-option value="3">Neutral</mat-option>
+              <mat-option value="4">Likely</mat-option>
+              <mat-option value="5">Very Likely</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div>
-    <label for="square25">$25 Square:</label>
-    <select id="square25">
-      <option value="1">Very Unlikely</option>
-      <option value="2">Unlikely</option>
-      <option value="3">Neutral</option>
-      <option value="4">Likely</option>
-      <option value="5">Very Likely</option>
-    </select>
-  </div>
+        <div>
+          <mat-form-field>
+            <mat-label>$50 Square</mat-label>
+            <mat-select>
+              <mat-option value="1">Very Unlikely</mat-option>
+              <mat-option value="2">Unlikely</mat-option>
+              <mat-option value="3">Neutral</mat-option>
+              <mat-option value="4">Likely</mat-option>
+              <mat-option value="5">Very Likely</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div>
-    <label for="square50">$50 Square:</label>
-    <select id="square50">
-      <option value="1">Very Unlikely</option>
-      <option value="2">Unlikely</option>
-      <option value="3">Neutral</option>
-      <option value="4">Likely</option>
-      <option value="5">Very Likely</option>
-    </select>
-  </div>
+        <div>
+          <mat-form-field>
+            <mat-label>$100 Square</mat-label>
+            <mat-select>
+              <mat-option value="1">Very Unlikely</mat-option>
+              <mat-option value="2">Unlikely</mat-option>
+              <mat-option value="3">Neutral</mat-option>
+              <mat-option value="4">Likely</mat-option>
+              <mat-option value="5">Very Likely</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div>
-    <label for="square100">$100 Square:</label>
-    <select id="square100">
-      <option value="1">Very Unlikely</option>
-      <option value="2">Unlikely</option>
-      <option value="3">Neutral</option>
-      <option value="4">Likely</option>
-      <option value="5">Very Likely</option>
-    </select>
-  </div>
+        <div>
+          <mat-form-field>
+            <mat-label>$500 Square</mat-label>
+            <mat-select>
+              <mat-option value="1">Very Unlikely</mat-option>
+              <mat-option value="2">Unlikely</mat-option>
+              <mat-option value="3">Neutral</mat-option>
+              <mat-option value="4">Likely</mat-option>
+              <mat-option value="5">Very Likely</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div>
-    <label for="square500">$500 Square:</label>
-    <select id="square500">
-      <option value="1">Very Unlikely</option>
-      <option value="2">Unlikely</option>
-      <option value="3">Neutral</option>
-      <option value="4">Likely</option>
-      <option value="5">Very Likely</option>
-    </select>
-  </div>
+        <div>
+          <mat-form-field>
+            <mat-label>$1000 Square</mat-label>
+            <mat-select>
+              <mat-option value="1">Very Unlikely</mat-option>
+              <mat-option value="2">Unlikely</mat-option>
+              <mat-option value="3">Neutral</mat-option>
+              <mat-option value="4">Likely</mat-option>
+              <mat-option value="5">Very Likely</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div>
-    <label for="square1000">$1000 Square:</label>
-    <select id="square1000">
-      <option value="1">Very Unlikely</option>
-      <option value="2">Unlikely</option>
-      <option value="3">Neutral</option>
-      <option value="4">Likely</option>
-      <option value="5">Very Likely</option>
-    </select>
-  </div>
+        
 
-  <div>
-    <label for="liveStream">Would you like to see a live stream for the boards?</label>
-    <select id="liveStream">
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-    </select>
-  </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
 
-  <div>
-    <label for="email">Email Address:</label>
-    <input type="email" id="email" required>
-  </div>
+      <mat-step>
+        <ng-template matStepLabel>More Questions</ng-template>
+        <div>
+          <mat-form-field>
+            <mat-label>Live Stream</mat-label>
+            <mat-select>
+              <mat-option value="yes">Yes</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
 
-  <button type="submit">Join Waiting List</button>
-</form>
+      <mat-step>
+        <ng-template matStepLabel>Contact</ng-template>
+        <div>
+          <mat-form-field>
+            <mat-label>Email Address</mat-label>
+            <input matInput type="email" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <!-- <button mat-button matStepperPrevious>Previous</button> -->
+          <button mat-button type="submit">Join Waiting List</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-card-content>
+</mat-card>
